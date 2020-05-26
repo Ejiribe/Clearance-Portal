@@ -145,10 +145,10 @@
                                     </a>
                                     <ul class="sidebar-nav">
                                         <li>
-                                            <a href="javascript:getSchoolFeeBalance()"> School Fees </a>
+                                            <a href="javascript:getSchoolFeeBalance(localStorage.getItem('currentUser'))"> School Fees </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:getHostelFeeBalance()"> Hostel Fees </a>
+                                            <a href="javascript:getHostelFeeBalance(localStorage.getItem('currentUser'))"> Hostel Fees </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -358,7 +358,7 @@
                                                         </td>
                                                         <td style="height: 18px; width: 608px;">
                                                             <span style="height: 18px; width: 243px;">
-                                                            <button type="button" class="btn btn-primary btn-lg" style="display:none id="target2">Generate</button>
+                                                            <button type="button" class="btn btn-primary btn-lg" style="display:none" id="target2">Generate</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
