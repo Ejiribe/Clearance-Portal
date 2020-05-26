@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/vendor.css">
         <!-- Theme initialization -->
         <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/profile.css">
         <script>
             var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
             {};
@@ -134,7 +135,7 @@
                         <nav class="menu">
                             <ul class="sidebar-menu metismenu" id="sidebar-menu">
                                 <li class="active">
-                                    <a href="profile.html">
+                                    <a href="javascript:getProfile()">
                                         <i class="fa fa-user"></i> Profile
                                     </a>
                                 </li>
@@ -144,15 +145,15 @@
                                     </a>
                                     <ul class="sidebar-nav">
                                         <li>
-                                            <a href="javascript:getSchoolFeeBalance(localStorage.getItem('currentUser'))" id="schoolFee"> School Fees </a>
+                                            <a href="javascript:getSchoolFeeBalance()"> School Fees </a>
                                         </li>
                                         <li>
-                                            <a href="hostel_fees.html"> Hostel Fees </a>
+                                            <a href="javascript:getHostelFeeBalance()"> Hostel Fees </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="clearance_status.html">
+                                    <a href="javascript:getClearanceStatus()">
                                         <i class="fa fa-check-square-o"></i> View Clearance Status
                                     </a>
                                 </li>
@@ -183,7 +184,7 @@
                                                     <label>
                                                         <input class="radio" type="radio" name="sidebarPosition" value="sidebar-fixed">
                                                         <span></span>
-                                                    </label>
+                                                    </label> 
                                                 </div>
                                                 <div class="col-4">
                                                     <label>
@@ -269,24 +270,420 @@
                         </div>
                     </div>
                     
-                    <div class="container" id="feeContent" style="display:none">
-                        <table align="center" border="0" cellpadding="0" cellspacing="2" width="800"> 
+                    <!-- Profile Content -->
+                    <article class="content forms-page" id="profileContent" style="display:none">
+                    <div class="title-block" >
+                        <h3 class="title"> Student Profile </h3>
+                    </div>
+                    <div class="testbox">
+                        <form action="/">
+                            <div class="banner">
+                            <h1>Student Personal Information</h1>
+                            </div>
+                            <div class="item">
+                            <label for="fname"> First Name<span>*</span></label>
+                            <input id="fname" type="text" name="fname" required/>
+                            </div>
+                            <div class="item">
+                            <label for="lname"> Last Name<span>*</span></label>
+                            <input id="lname" type="text" name="lname" required/>
+                            </div>
+                            <div class="item">
+                            <label for="initial">Middle Name<span>*</span></label>
+                            <input id="initial" type="text" name="initial" required/>
+                            </div>
+                            <div class="question">
+                                <label for="sex">Sex</label>
+                                <div class="question-answer">
+                                <input type="radio" value="none" id="radio_1" name="driving"/>
+                                <label for="radio_1" class="radio"><span>Male</span></label>
+                                <input type="radio" value="none" id="radio_2" name="driving" />
+                                <label for="radio_2" class="radio"><span>Female</span></label>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <label for="bdate">Birth Date <span>*</span></label>
+                                <input id="bdate" type="date" name="bdate" required/>
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div  class="info-item">
+                                <label for="phone">Phone</i></label>
+                                <input type="text" name="phone" id="phone" required/>
+                                </div>
+                            <div class="item">
+                                <label for="bdate">Contact Address<span>*</span></label>
+                                <input type="text" name="address" placeholder="Street address"/>
+                            </div>
+                            <div class="item">
+                                <label for="email">Email</i></label>
+                                <input type="text" name="email"/>
+                            </div>
+                        </form>
+                        </div>
+                </article>
+                <!-- End of Profile Content -->
+
+                <!-- School Fees Content -->
+                    <article class="content items-list-page" id="feeContent" style="display:none">
+                        <div class="card items">
+                            <table align="center" border="0" cellpadding="0" cellspacing="2" width="800">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" height="20"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" colspan="2">
+                                            <strong>PAY FEES FOR YOUR CURRENT SESSION&nbsp;<hr size="1"></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong id="target" style="align:center"></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" height="21">
+                                            <table border="0" height="98" width="94%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="height: 18px" width="89"></td>
+                                                        <td class="fontBoldBlk" style="height: 18px" width="38"></td>
+                                                        <td style="width: 756px"></td>
+                                                        <td style="height: 18px; width: 608px;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 18px; " width="89"></td>
+                                                        <td>
+                                                            <span style="display:none; width:341px;" id="target1">RRR <b>(Remita Retrieval Reference) :</b></span>
+                                                        </td>
+                                                        <td style="height: 18px; width: 608px;">
+                                                            <span style="height: 18px; width: 243px;">
+                                                            <button type="button" class="btn btn-primary btn-lg" style="display:none id="target2">Generate</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px;">
+                                                            &nbsp;</td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                            &nbsp;</td>
+                                                        <td style="width: 756px; height: 22px;">
+                                                            &nbsp;</td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">    
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                            <span id="ContentPlaceHolder1_lblError1"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="">
+                                                            &nbsp;</td>
+                                                        <td class="fontBoldBlk">
+                                                            &nbsp;</td>
+                                                        <td style="width: 756px">
+                                                            &nbsp;</td>
+                                                        <td style="width: 608px">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                <!-- End of School Fees Content -->
+
+                <!-- Hostel Fee Content -->
+                    <article class="content items-list-page" id="hostelContent" style="display:none">
+                        <div class="card items">
+                            <table align="center" border="0" cellpadding="0" cellspacing="2" width="800">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" height="20"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" colspan="2">
+                                            <strong>PAY DEFAULTER'S FEE<hr size="1"></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong id="target" style="align:center"></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" height="21">
+                                            <table border="0" height="98" width="94%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="height: 18px" width="89"></td>
+                                                        <td class="fontBoldBlk" style="height: 18px" width="38"></td>
+                                                        <td style="width: 756px"></td>
+                                                        <td style="height: 18px; width: 608px;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 18px; " width="89"></td>
+                                                        <td>
+                                                            <span style="display:inline-block;width:341px;" id="target1">RRR <b>(Remita Retrieval Reference) :</b></span>
+                                                        </td>
+                                                        <td style="height: 18px; width: 608px;">
+                                                            <span style="height: 18px; width: 243px;">
+                                                            <button type="button" class="btn btn-primary btn-lg" id="target2">Generate</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px;">
+                                                            &nbsp;</td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                            &nbsp;</td>
+                                                        <td style="width: 756px; height: 22px;">
+                                                            &nbsp;</td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">    
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                        
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 22px">
+                                                        </td>
+                                                        <td class="fontBoldBlk" style="height: 22px">
+                                                        </td>
+                                                        <td style="width: 756px; height: 22px">
+                                                        </td>
+                                                        <td style="height: 22px; width: 608px;">
+                                                            <span id="ContentPlaceHolder1_lblError1"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="">
+                                                            &nbsp;</td>
+                                                        <td class="fontBoldBlk">
+                                                            &nbsp;</td>
+                                                        <td style="width: 756px">
+                                                            &nbsp;</td>
+                                                        <td style="width: 608px">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                
+
+                <!-- End of Hostel Fee Content -->
+
+                <!-- Clearance Status -->
+                <article class="content items-list-page" id="clearanceContent" style="display:none">
+                    <div class="card items">
+                        <table align="center" border="0" cellpadding="0" cellspacing="2" width="800">
                             <tbody>
-                                <tr> <td align="center" colspan="2"><strong>PAY FEES FOR YOUR CURRENT SESSION&nbsp;<hr size="1"></strong></td></tr>
-                                <tr><td><strong id="target" style="align:center"></strong></td></tr>
-                                <tr><td colspan="2" height="21">
-                                    <table border="0" height="98" width="94%">
-                                        <tbody>
-                                            <tr>
-                                                <td><span style="display:inline-block;width:341px;" id="target1">RRR <b>(Remita Retrieval Reference) :</b></span></td>
-                                                <td style="height: 18px; width: 608px;"><span style="height: 18px; width: 243px;"><button type="button" class="btn btn-primary btn-lg" id="target2">Generate</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <tr>
+                                    <td colspan="2" height="20"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <strong>CLEARANCE STATUS<hr size="1"></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong id="target" style="align:center"></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" height="21">
+                                        <table border="0" height="98" width="94%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 18px" width="89"></td>
+                                                    <td class="fontBoldBlk" style="height: 18px" width="38"></td>
+                                                    <td style="width: 756px"></td>
+                                                    <td style="height: 18px; width: 608px;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 18px; " width="89"></td>
+                                                    <td>
+                                                        <span style="display:inline-block;width:341px;" id="target1"><b>Student Affair:</b></span>
+                                                    </td>
+                                                    <td style="height: 18px; width: 608px;">
+                                                        <span style="height: 18px; width: 243px;">
+                                                        <button type="button" class="btn btn-primary btn-lg" id="target2">Good</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 18px; " width="89"></td>
+                                                    <td>
+                                                        <span style="display:inline-block;width:341px;" id="target1"><b>Library:</b></span>
+                                                    </td>
+                                                    <td style="height: 18px; width: 608px;">
+                                                        <span style="height: 18px; width: 243px;">
+                                                        <button type="button" class="btn btn-primary btn-lg" id="target2">Fail</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 18px; " width="89"></td>
+                                                    <td>
+                                                        <span style="display:inline-block;width:341px;" id="target1"><b>Security:</b></span>
+                                                    </td>
+                                                    <td style="height: 18px; width: 608px;">
+                                                        <span style="height: 18px; width: 243px;">
+                                                        <button type="button" class="btn btn-primary btn-lg" id="target2">Fail</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 18px; " width="89"></td>
+                                                    <td>
+                                                        <span style="display:inline-block;width:341px;" id="target1"><b>Audit:</b></span>
+                                                    </td>
+                                                    <td style="height: 18px; width: 608px;">
+                                                        <span style="height: 18px; width: 243px;">
+                                                        <button type="button" class="btn btn-primary btn-lg" id="target2">Good</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 22px;">
+                                                        &nbsp;</td>
+                                                    <td class="fontBoldBlk" style="height: 22px">
+                                                        &nbsp;</td>
+                                                    <td style="width: 756px; height: 22px;">
+                                                        &nbsp;</td>
+                                                    <td style="height: 22px; width: 608px;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 22px">
+                                                    </td>
+                                                    <td class="fontBoldBlk" style="height: 22px">
+                                                    </td>
+                                                    <td style="width: 756px; height: 22px">
+                                                    </td>
+                                                    <td style="height: 22px; width: 608px;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 22px">
+                                                    </td>
+                                                    <td class="fontBoldBlk" style="height: 22px">
+                                                    </td>
+                                                    <td style="width: 756px; height: 22px">
+                                                    </td>
+                                                    <td style="height: 22px; width: 608px;">    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 22px">
+                                                    </td>
+                                                    <td class="fontBoldBlk" style="height: 22px">
+                                                    </td>
+                                                    <td style="width: 756px; height: 22px">
+                                                    </td>
+                                                    <td style="height: 22px; width: 608px;">
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 22px">
+                                                    </td>
+                                                    <td class="fontBoldBlk" style="height: 22px">
+                                                    </td>
+                                                    <td style="width: 756px; height: 22px">
+                                                    </td>
+                                                    <td style="height: 22px; width: 608px;">
+                                                        <span id="ContentPlaceHolder1_lblError1"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">
+                                                        &nbsp;</td>
+                                                    <td class="fontBoldBlk">
+                                                        &nbsp;</td>
+                                                    <td style="width: 756px">
+                                                        &nbsp;</td>
+                                                    <td style="width: 608px">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                </article>
+            <!-- End of Clearance Status -->
                 </article>
                 <footer class="footer">
                     <div class="footer-block author">

@@ -61,7 +61,11 @@ body {
     min-height: 100vh; }
     @media (min-width: 1200px) {
       .app .content {
+<<<<<<< HEAD
         padding: 105px 40px 85px 40px; } }
+=======
+        padding: 55px 40px 85px 40px; } }
+>>>>>>> b585290d3a14f41f099ae5a6b8f4455ab0f64c7c
     @media (min-width: 992px) and (max-width: 1199.98px) {
       .app .content {
         padding: 100px 35px 80px 35px; } }
@@ -679,6 +683,10 @@ pre {
   -webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
           box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
   margin-bottom: 10px;
+<<<<<<< HEAD
+=======
+  /* margin-top: 40px; */
+>>>>>>> b585290d3a14f41f099ae5a6b8f4455ab0f64c7c
   border-radius: 0;
   border: none; }
   .card .card {
